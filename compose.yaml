@@ -54,7 +54,7 @@ volumes:
     driver_opts:
       type: "nfs"
       o: ${TESLAMATE_NFS_PATH}
-      device: ${TESLAMATE_NFS_DEVICE_DB}
+      device: ${TESLAMATE_NFS_DEVICE_POSTGRESDB}
   teslamate-grafana-data:
     driver_opts:
       type: "nfs"
