@@ -4,9 +4,9 @@ services:
     restart: always
     environment:
       - ENCRYPTION_KEY=${ENCRYPTION_KEY} #replace with a secure key to encrypt your Tesla API tokens
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASS=${DATABASE_PASS} #insert your secure database password!
-      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${POSTGRES_USER}
+      - DATABASE_PASS=${POSTGRES_PASSWORD} #insert your secure database password!
+      - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - MQTT_HOST=mosquitto
     ports:
@@ -30,9 +30,9 @@ services:
     image: teslamate/grafana:latest
     restart: always
     environment:
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASS=${DATABASE_PASS}  #insert your secure database password!
-      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${POSTGRES_USER}
+      - DATABASE_PASS=${POSTGRES_PASSWORD}  #insert your secure database password!
+      - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
     ports:
       - 3000:3000
