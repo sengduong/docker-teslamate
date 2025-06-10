@@ -59,7 +59,7 @@ services:
       - teslamate_internal
 
 networks:
-  netbox_internal:
+  teslamate_internal:
   caddy_net:
     external: true
 
