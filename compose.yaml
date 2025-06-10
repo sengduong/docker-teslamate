@@ -1,0 +1,72 @@
+services:
+  teslamate:
+    image: teslamate/teslamate:latest
+    restart: always
+    environment:
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY} #replace with a secure key to encrypt your Tesla API tokens
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASS=${DATABASE_PASS} #insert your secure database password!
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_HOST=database
+      - MQTT_HOST=mosquitto
+    ports:
+      - 4000:4000
+    volumes:
+      - ./import:/opt/app/import
+    cap_drop:
+      - all
+
+  database:
+    image: postgres:17
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} #insert your secure database password!
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - teslamate-db:/var/lib/postgresql/data
+
+  grafana:
+    image: teslamate/grafana:latest
+    restart: always
+    environment:
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASS=${DATABASE_PASS}  #insert your secure database password!
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_HOST=database
+    ports:
+      - 3000:3000
+    volumes:
+      - teslamate-grafana-data:/var/lib/grafana
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: always
+    command: mosquitto -c /mosquitto-no-auth.conf
+    # ports:
+    #   - 1883:1883
+    volumes:
+      - mosquitto-conf:/mosquitto/config
+      - mosquitto-data:/mosquitto/data
+
+volumes:
+  teslamate-db:
+    driver_opts:
+      type: "nfs"
+      o: ${TESLAMATE_NFS_PATH}
+      device: ${TESLAMATE_NFS_DEVICE_DB}
+  teslamate-grafana-data:
+    driver_opts:
+      type: "nfs"
+      o: ${TESLAMATE_NFS_PATH}
+      device: ${TESLAMATE_NFS_DEVICE_GRAFANADATA}
+  mosquitto-conf:
+    driver_opts:
+      type: "nfs"
+      o: ${TESLAMATE_NFS_PATH}
+      device: ${TESLAMATE_NFS_DEVICE_MOSQUITTOCONF}
+  mosquitto-data:
+    driver_opts:
+      type: "nfs"
+      o: ${TESLAMATE_NFS_PATH}
+      device: ${TESLAMATE_NFS_DEVICE_MOSQUITTODATA}
