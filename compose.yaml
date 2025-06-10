@@ -24,7 +24,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} #insert your secure database password!
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - teslamate-db:/var/lib/postgresql/data
+      - postgres-db:/var/lib/postgresql/data
 
   grafana:
     image: teslamate/grafana:latest
@@ -50,11 +50,11 @@ services:
       - mosquitto-data:/mosquitto/data
 
 volumes:
-  teslamate-db:
+  postgres-db:
     driver_opts:
       type: "nfs"
       o: ${TESLAMATE_NFS_PATH}
-      device: ${TESLAMATE_NFS_DEVICE_TELSLAMATEDB}
+      device: ${TESLAMATE_NFS_DEVICE_POSTGRESDB}
   teslamate-grafana-data:
     driver_opts:
       type: "nfs"
