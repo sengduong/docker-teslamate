@@ -9,12 +9,15 @@ services:
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - MQTT_HOST=mosquitto
-    ports:
-      - 4000:4000
+    #ports:
+    #  - 4000:4000
     volumes:
       - ./import:/opt/app/import
     cap_drop:
       - all
+    networks:
+      - teslamate_internal
+      - caddy_net
 
   database:
     image: postgres:17
@@ -25,6 +28,8 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres-db:/var/lib/postgresql/data
+    networks:
+      - teslamate_internal
 
   grafana:
     image: teslamate/grafana:latest
@@ -38,6 +43,8 @@ services:
       - 3000:3000
     volumes:
       - teslamate-grafana-data:/var/lib/grafana
+    networks:
+      - teslamate_internal
 
   mosquitto:
     image: eclipse-mosquitto:2
@@ -48,6 +55,13 @@ services:
     volumes:
       - mosquitto-conf:/mosquitto/config
       - mosquitto-data:/mosquitto/data
+    networks:
+      - teslamate_internal
+
+networks:
+  netbox_internal:
+  caddy_net:
+    external: true
 
 volumes:
   postgres-db:
