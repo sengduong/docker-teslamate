@@ -17,7 +17,7 @@ services:
       - all
     networks:
       - teslamate_internal
-      - caddy_net
+      - caddy-1_caddy_net
 
   database:
     image: postgres:17
@@ -60,7 +60,7 @@ services:
 
 networks:
   teslamate_internal:
-  caddy_net:
+  caddy-1_caddy_net:
     external: true
 
 volumes:
