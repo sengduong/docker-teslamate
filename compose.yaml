@@ -62,6 +62,7 @@ networks:
   teslamate_internal:
   caddy-1_caddy_net:
     external: true
+    name: "caddy-1_caddy_net"
 
 volumes:
   postgres-db:
