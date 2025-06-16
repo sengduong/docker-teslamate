@@ -17,7 +17,7 @@ services:
       - all
     networks:
       - teslamate_internal
-      - caddy-1_caddy_net
+      - caddy-2_caddy_net
 
   database:
     image: postgres:17
@@ -57,10 +57,11 @@ services:
       - mosquitto-data:/mosquitto/data
     networks:
       - teslamate_internal
+      - caddy-2_caddy_net
 
 networks:
   teslamate_internal:
-  caddy-1_caddy_net:
+  caddy-2_caddy_net:
     external: true
     name: "caddy-2_caddy_net"
 
