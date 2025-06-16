@@ -39,8 +39,8 @@ services:
       - DATABASE_PASS=${POSTGRES_PASSWORD}  #insert your secure database password!
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
-    ports:
-      - 3000:3000
+    #ports:
+    #  - 3000:3000
     volumes:
       - teslamate-grafana-data:/var/lib/grafana
     networks:
@@ -58,7 +58,6 @@ services:
       - mosquitto-data:/mosquitto/data
     networks:
       - teslamate_internal
-      - caddy-2_caddy_net
 
 networks:
   teslamate_internal:
