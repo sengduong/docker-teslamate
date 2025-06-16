@@ -9,7 +9,7 @@ services:
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - MQTT_HOST=mosquitto
-      - VIRTUAL_HOST=${FQDN_TM}
+      - VIRTUAL_HOST=${TM_FQDN}
       - CHECK_ORIGIN=false
       - TZ=${TM_TZ}
     #ports:
@@ -43,7 +43,7 @@ services:
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - GF_AUTH_ANONYMOUS_ENABLED=false
-      - GF_SERVER_DOMAIN=${FQDN_TM}
+      - GF_SERVER_DOMAIN=${GF_FQDN}
     #ports:
     #  - 3000:3000
     volumes:
