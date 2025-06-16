@@ -9,8 +9,8 @@ services:
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - MQTT_HOST=mosquitto
-      - VIRTUAL_HOST=${TM_FQDN}
-      - CHECK_ORIGIN=false
+      - VIRTUAL_HOST=${FQDN_TM}
+      - CHECK_ORIGIN=true
       - TZ=${TM_TZ}
     #ports:
     #  - 4000:4000
@@ -43,7 +43,9 @@ services:
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - GF_AUTH_ANONYMOUS_ENABLED=false
-      - GF_SERVER_DOMAIN=${GF_FQDN}
+      - GF_SERVER_DOMAIN=${FQDN_TM}
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
     #ports:
     #  - 3000:3000
     volumes:
@@ -51,18 +53,6 @@ services:
     networks:
       - teslamate_internal
       - caddy-2_caddy_net
-
-  mosquitto:
-    image: eclipse-mosquitto:2
-    restart: always
-    command: mosquitto -c /mosquitto-no-auth.conf
-    # ports:
-    #   - 1883:1883
-    volumes:
-      - mosquitto-conf:/mosquitto/config
-      - mosquitto-data:/mosquitto/data
-    networks:
-      - teslamate_internal
 
 networks:
   teslamate_internal:
@@ -81,13 +71,3 @@ volumes:
       type: "nfs"
       o: ${TESLAMATE_NFS_PATH}
       device: ${TESLAMATE_NFS_DEVICE_GRAFANADATA}
-  mosquitto-conf:
-    driver_opts:
-      type: "nfs"
-      o: ${TESLAMATE_NFS_PATH}
-      device: ${TESLAMATE_NFS_DEVICE_MOSQUITTOCONF}
-  mosquitto-data:
-    driver_opts:
-      type: "nfs"
-      o: ${TESLAMATE_NFS_PATH}
-      device: ${TESLAMATE_NFS_DEVICE_MOSQUITTODATA}
