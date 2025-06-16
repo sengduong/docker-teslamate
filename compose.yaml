@@ -11,6 +11,7 @@ services:
       - VIRTUAL_HOST=${FQDN_TM}
       - CHECK_ORIGIN=true
       - TZ=${TM_TZ}
+      - MQTT_HOST=mosquitto
     #ports:
     #  - 4000:4000
     volumes:
