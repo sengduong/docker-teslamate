@@ -45,6 +45,7 @@ services:
       - teslamate-grafana-data:/var/lib/grafana
     networks:
       - teslamate_internal
+      - caddy-2_caddy_net
 
   mosquitto:
     image: eclipse-mosquitto:2
