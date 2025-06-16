@@ -8,7 +8,6 @@ services:
       - DATABASE_PASS=${POSTGRES_PASSWORD} #insert your secure database password!
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
-      - MQTT_HOST=mosquitto
       - VIRTUAL_HOST=${FQDN_TM}
       - CHECK_ORIGIN=true
       - TZ=${TM_TZ}
