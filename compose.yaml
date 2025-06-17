@@ -38,7 +38,7 @@ services:
       - DATABASE_NAME=${POSTGRES_DB}
       - DATABASE_HOST=database
       - GF_AUTH_ANONYMOUS_ENABLED=false
-      - GF_SERVER_DOMAIN=${FQDN_TM}
+      - GF_SERVER_DOMAIN=${FQDN_GF}
       - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
     ports:
