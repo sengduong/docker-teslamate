@@ -47,6 +47,7 @@ services:
       - 3000:3000
     volumes:
       - teslamate-grafana-data:/var/lib/grafana
+      - teslamate-grafana-config:/etc/grafana
 
   mosquitto:
     image: eclipse-mosquitto:2
@@ -61,5 +62,6 @@ services:
 volumes:
   teslamate-db:
   teslamate-grafana-data:
+  teslamate-grafana-config:
   mosquitto-conf:
   mosquitto-data:
