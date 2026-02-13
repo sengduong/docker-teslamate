@@ -25,6 +25,7 @@ services:
       - POSTGRES_USER=teslamate
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD} #insert your secure database password!
       - POSTGRES_DB=teslamate
+      - TZ=Europe/Zurich
     volumes:
       - teslamate-db:/var/lib/postgresql
 
@@ -36,6 +37,7 @@ services:
       - DATABASE_PASS=${POSTGRES_PASSWORD} #insert your secure database password!
       - DATABASE_NAME=teslamate
       - DATABASE_HOST=database
+      - TZ=Europe/Zurich
     #  - GF_AUTH_ANONYMOUS_ENABLED=false
     #  - GF_SERVER_DOMAIN=${FQDN}
     #  - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana
