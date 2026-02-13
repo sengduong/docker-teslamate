@@ -39,8 +39,8 @@ services:
       - DATABASE_HOST=database
       - TZ=Europe/Zurich
       - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_SERVER_DOMAIN=${DOMAIN}
-      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/grafana
+      #- GF_SERVER_DOMAIN=${DOMAIN}
+      - GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL}
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
       - GF_SECURITY_CSRF_TRUSTED_ORIGINS=${DOMAIN}
       - GF_AUTH_AZUREAD_NAME=Entra ID
