@@ -37,6 +37,11 @@ services:
     volumes:
       - teslamate-db:/var/lib/postgresql
       - backup:/var/lib/postgresql/backup
+    
+    labels:
+      ofelia.enabled: ${OFELIA_ENABLED}
+      ofelia.job-exec.export.schedule: ${OFELIA_SCHEDULE}
+      ofelia.job-exec.export.command: ${OFELIA_COMMAND}
 
   grafana:
     image: teslamate/grafana:latest
