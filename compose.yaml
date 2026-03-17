@@ -1,4 +1,12 @@
 services:
+
+  ofelia:
+    image: mcuadros/ofelia:latest
+    restart: always
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   teslamate:
     image: teslamate/teslamate:latest
     restart: always
@@ -28,6 +36,7 @@ services:
       - TZ=Europe/Zurich
     volumes:
       - teslamate-db:/var/lib/postgresql
+      - backup:/var/lib/postgresql/backup
 
   grafana:
     image: teslamate/grafana:latest
@@ -82,3 +91,8 @@ volumes:
   teslamate-grafana-config:
   mosquitto-conf:
   mosquitto-data:
+  backup:
+    driver_opts:
+      type: "nfs"
+      o: ${TESLAMATE_NFS_PATH}
+      device: ${TESLAMATE_NFS_DEVICE_BACKUP}
